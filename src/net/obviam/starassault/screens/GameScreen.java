@@ -175,18 +175,18 @@ public class GameScreen implements Screen, InputProcessor {
     @Override
     public boolean touchDragged(int x, int y, int pointer) {
         // TODO Auto-generated method stub
-        return false;
+        return true;
     }
 
     @Override
     public boolean mouseMoved(int x, int y) {
         // TODO Auto-generated method stub
-        return false;
+        return true;
     }
 
     @Override
     public boolean scrolled(int amount) {
         // TODO Auto-generated method stub
-        return false;
+        return true;
     }
 }

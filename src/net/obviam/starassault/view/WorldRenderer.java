@@ -1,6 +1,7 @@
 package net.obviam.starassault.view;
 
 import net.obviam.starassault.model.Block;
+import net.obviam.starassault.model.BlueBlock;
 import net.obviam.starassault.model.Bob;
 import net.obviam.starassault.model.Bob.State;
 import net.obviam.starassault.model.World;
@@ -32,6 +33,7 @@ public class WorldRenderer {
     private TextureRegion bobIdleLeft;
     private TextureRegion bobIdleRight;
     private TextureRegion blockTexture;
+    private TextureRegion blockBlueTexture;
     private TextureRegion bobFrame;
     private TextureRegion bobJumpLeft;
     private TextureRegion bobFallLeft;
@@ -79,6 +81,7 @@ public class WorldRenderer {
         bobIdleRight = new TextureRegion(bobIdleLeft);
         bobIdleRight.flip(true, false);
         blockTexture = atlas.findRegion("block");
+        blockBlueTexture = atlas.findRegion("block_blue");
         TextureRegion[] walkLeftFrames = new TextureRegion[5];
         for (int i = 0; i < 5; i++) {
             walkLeftFrames[i] = atlas.findRegion("bob-0" + (i + 2));
@@ -116,7 +119,11 @@ public class WorldRenderer {
 
     private void drawBlocks() {
         for (Block block : world.getDrawableBlocks((int) CAMERA_WIDTH, (int) CAMERA_HEIGHT)) {
-            spriteBatch.draw(blockTexture, block.getPosition().x, block.getPosition().y, Block.SIZE, Block.SIZE);
+            if (block instanceof BlueBlock == true) {
+                spriteBatch.draw(blockBlueTexture, block.getPosition().x, block.getPosition().y, Block.SIZE, Block.SIZE);
+            } else {
+                spriteBatch.draw(blockTexture, block.getPosition().x, block.getPosition().y, Block.SIZE, Block.SIZE);
+            }
         }
     }
 

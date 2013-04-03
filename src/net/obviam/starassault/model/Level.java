@@ -87,8 +87,8 @@ public class Level {
     }
 
     private void loadVerticalLevel() {
-        width = 100;
-        height = 20;
+        width = 50;
+        height = 50;
         blocks = new Block[width][height];
         for (int col = 0; col < width; col++) {
             for (int row = 0; row < height; row++) {
@@ -99,12 +99,12 @@ public class Level {
         Random random = new Random();
         for (int col = 0; col < width; col++) {
             for (int row = 0; row < height; row++) {
-                int frequency = random.nextInt(20) + 1;
-                if (row == 0) {
+                int frequency = random.nextInt(10) + 10;
+                if (row == 0 && col < 5) {
                     blocks[col][row] = new Block(new Vector2(col, row));
                 } else {
                     if (row % 2 == 0) {
-                        int divisor = frequency + 1;
+                        int divisor = frequency;
                         int step = width / divisor;
                         if (col % step != 0) {
                             blocks[col][row] = new Block(new Vector2(col, row));
@@ -113,5 +113,10 @@ public class Level {
                 }
             }
         }
+
+        int blueBlockX = random.nextInt(30) + 20;
+        int blueBlockY = random.nextInt(30) + 20;
+        blocks[blueBlockY][blueBlockX] = new BlueBlock(new Vector2(blueBlockY, blueBlockX));
+        System.out.println("BlueBlock: (" + blueBlockX + ", " + blueBlockY + ")");
     }
 }
