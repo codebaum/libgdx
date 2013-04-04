@@ -110,7 +110,7 @@ public class WorldRenderer {
         drawBlocks();
         drawBob();
         spriteBatch.end();
-        drawButtons();
+        //        drawButtons();
         if (debug) {
             drawCollisionBlocks();
             drawDebug();

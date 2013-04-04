@@ -129,7 +129,7 @@ public class BobController {
 
         // simply updates the state time
         bob.update(delta);
-        System.out.println("Bob's Position: (" + bob.getPosition().x + ", " + bob.getPosition().y + ")");
+        //        System.out.println("Bob's Position: (" + bob.getPosition().x + ", " + bob.getPosition().y + ")");
     }
 
     /** Collision checking **/
@@ -203,6 +203,10 @@ public class BobController {
                 }
                 bob.getVelocity().y = 0;
                 world.getCollisionRects().add(block.getBounds());
+                if (block instanceof BlueBlock) {
+                    bob.setPosition(new Vector2(2, 4));
+                    Gdx.input.vibrate(new long[] { 0, 500, 200, 500 }, -1);
+                }
                 break;
             }
         }
