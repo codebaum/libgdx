@@ -95,9 +95,6 @@ public class Bob {
     }
 
     public void update(float delta) {
-        //      position.add(velocity.tmp().mul(delta));
-        //      bounds.x = position.x;
-        //      bounds.y = position.y;
         stateTime += delta;
     }
 

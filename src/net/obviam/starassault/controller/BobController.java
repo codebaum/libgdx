@@ -7,6 +7,7 @@ import net.obviam.starassault.model.Block;
 import net.obviam.starassault.model.BlueBlock;
 import net.obviam.starassault.model.Bob;
 import net.obviam.starassault.model.Bob.State;
+import net.obviam.starassault.model.Level;
 import net.obviam.starassault.model.World;
 
 import com.badlogic.gdx.Gdx;
@@ -171,8 +172,7 @@ public class BobController {
                 bob.getVelocity().x = 0;
                 world.getCollisionRects().add(block.getBounds());
                 if (block instanceof BlueBlock) {
-                    bob.setPosition(new Vector2(2, 4));
-                    Gdx.input.vibrate(new long[] { 0, 500, 200, 500 }, -1);
+                    resetBobPosition();
                 }
                 break;
             }
@@ -204,8 +204,7 @@ public class BobController {
                 bob.getVelocity().y = 0;
                 world.getCollisionRects().add(block.getBounds());
                 if (block instanceof BlueBlock) {
-                    bob.setPosition(new Vector2(2, 4));
-                    Gdx.input.vibrate(new long[] { 0, 500, 200, 500 }, -1);
+                    resetBobPosition();
                 }
                 break;
             }
@@ -221,6 +220,12 @@ public class BobController {
         // un-scale velocity (not in frame time)
         bob.getVelocity().scl(1 / delta);
 
+    }
+
+    private void resetBobPosition() {
+        bob.setPosition(new Vector2(2, 4));
+        Gdx.input.vibrate(new long[] { 0, 200, 50, 200 }, -1);
+        world.setLevel(new Level());
     }
 
     /** populate the collidable array with the blocks found in the enclosing coordinates **/

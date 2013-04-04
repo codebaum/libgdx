@@ -10,6 +10,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -45,9 +46,11 @@ public class WorldRenderer {
     private Animation walkRightAnimation;
 
     private SpriteBatch spriteBatch;
+    private SpriteBatch hudBatch;
     private boolean debug = false;
     private int width;
     private int height;
+    private BitmapFont font;
 
     public void setSize(int w, int h) {
         this.width = w;
@@ -72,7 +75,10 @@ public class WorldRenderer {
         this.cam.update();
         this.debug = debug;
         spriteBatch = new SpriteBatch();
+        hudBatch = new SpriteBatch();
         loadTextures();
+        font = new BitmapFont();
+        font.scale(4f);
     }
 
     private void loadTextures() {
@@ -110,11 +116,51 @@ public class WorldRenderer {
         drawBlocks();
         drawBob();
         spriteBatch.end();
+
+        hudBatch.begin();
+        drawText();
+        hudBatch.end();
         //        drawButtons();
         if (debug) {
             drawCollisionBlocks();
             drawDebug();
         }
+    }
+
+    private void drawText() {
+        BlueBlock blueBlock = world.getLevel().getBlueBlock();
+        float blueBlockX = blueBlock.getPosition().x;
+        float blueBlockY = blueBlock.getPosition().y;
+        Bob bob = world.getBob();
+        float bobX = bob.getPosition().x;
+        float bobY = bob.getPosition().y;
+        int distance = (int) Math.sqrt((float) Math.pow(Math.abs(bobX - blueBlockX), 2) + (float) Math.pow(Math.abs(bobY - blueBlockY), 2));
+
+        String temp = "";
+        if (distance > 50) {
+            font.setColor(0.0f, 0.0f, 1.0f, 1.0f);
+            temp = "FREEZING";
+        } else if (distance > 40) {
+            font.setColor(0.0f, 0.0f, 1.0f, 1.0f);
+            temp = "COLD";
+        } else if (distance > 30) {
+            font.setColor(0.0f, 0.0f, 1.0f, 1.0f);
+            temp = "CHILLY";
+        } else if (distance > 20) {
+            font.setColor(1.0f, 1.0f, 1.0f, 1.0f);
+            temp = "TEPID";
+        } else if (distance > 10) {
+            font.setColor(1.0f, 0.0f, 0.0f, 1.0f);
+            temp = "WARM";
+        } else if (distance > 5) {
+            font.setColor(1.0f, 0.0f, 0.0f, 1.0f);
+            temp = "HOT";
+        } else {
+            font.setColor(1.0f, 0.0f, 0.0f, 1.0f);
+            temp = "ON FIRE!";
+        }
+
+        font.draw(hudBatch, temp, width - 500, 100);
     }
 
     private void drawBlocks() {

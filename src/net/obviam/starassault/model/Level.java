@@ -9,6 +9,7 @@ public class Level {
     private int width;
     private int height;
     private Block[][] blocks;
+    private BlueBlock blueBlock;
 
     public int getWidth() {
         return width;
@@ -32,6 +33,10 @@ public class Level {
 
     public void setBlocks(Block[][] blocks) {
         this.blocks = blocks;
+    }
+
+    public BlueBlock getBlueBlock() {
+        return blueBlock;
     }
 
     public Level() {
@@ -113,10 +118,14 @@ public class Level {
                 }
             }
         }
+        blocks[2][1] = null;
+        blocks[2][2] = null;
+        blocks[2][3] = null;
+        blocks[2][4] = null;
 
         int blueBlockX = random.nextInt(30) + 20;
         int blueBlockY = random.nextInt(30) + 20;
-        blocks[blueBlockY][blueBlockX] = new BlueBlock(new Vector2(blueBlockY, blueBlockX));
-        System.out.println("BlueBlock: (" + blueBlockX + ", " + blueBlockY + ")");
+        blueBlock = new BlueBlock(new Vector2(blueBlockY, blueBlockX));
+        blocks[blueBlockY][blueBlockX] = blueBlock;
     }
 }

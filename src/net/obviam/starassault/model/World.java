@@ -29,6 +29,10 @@ public class World {
         return bob;
     }
 
+    public void setLevel(Level l) {
+        level = l;
+    }
+
     public Level getLevel() {
         return level;
     }
